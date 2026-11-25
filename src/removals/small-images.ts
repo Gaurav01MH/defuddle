@@ -3,8 +3,8 @@ import { getClassName } from '../utils/dom';
 import { isBase64Placeholder } from '../elements/images';
 import { LOOKS_LIKE_LATEX_RE } from '../elements/math.base';
 
-const STYLE_WIDTH_PATTERN = /width\s*:\s*(\d+)/;
-const STYLE_HEIGHT_PATTERN = /height\s*:\s*(\d+)/;
+const STYLE_WIDTH_PATTERN = /(?:^|;)\s*width\s*:\s*(\d+)/;
+const STYLE_HEIGHT_PATTERN = /(?:^|;)\s*height\s*:\s*(\d+)/;
 // Matches width hints in CDN image URLs: ?w=48, &width=48, /w:48/, /width:48/
 const URL_WIDTH_PATTERN = /(?:width[=:/]|[/,?&]w[_:=])(\d+)/;
 
@@ -18,7 +18,6 @@ export function getElementIdentifier(element: Element): string | null {
 		const src = element.getAttribute('src') || '';
 		const srcset = element.getAttribute('srcset') || '';
 		const dataSrcset = element.getAttribute('data-srcset');
-
 		if (src) return `src:${src}`;
 		if (srcset) return `srcset:${srcset}`;
 		if (dataSrcset) return `srcset:${dataSrcset}`;
